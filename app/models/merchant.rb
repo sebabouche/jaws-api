@@ -1,3 +1,3 @@
-class Mang < ActiveRecord::Base
+class Merchant < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 end
