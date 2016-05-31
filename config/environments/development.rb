@@ -13,13 +13,12 @@ Rails.application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
-  # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
-
-  # Configure for mailcatcher
-  config.action_mailer.default_url_options = { :host => 'devise-token-auth-demo.dev' }
+  ### MAILCATCHER CONFIG
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => 'devise-token-auth-demo.dev', :port => 1025 }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.smtp_settings = { :address => 'localhost', :port => 1025 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -40,5 +39,5 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  OmniAuth.config.full_host = "http://devise-token-auth-demo.dev"
+  OmniAuth.config.full_host = "http://localhost:3000"
 end
