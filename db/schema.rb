@@ -11,12 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922175847) do
+ActiveRecord::Schema.define(version: 20160604212209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "mangs", force: :cascade do |t|
+  create_table "categories", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.integer  "priority"
+    t.string   "name"
+    t.string   "displayName"
+    t.string   "visibility"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "mangs", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "email"
     t.string   "encrypted_password",          default: "", null: false
     t.string   "reset_password_token"
@@ -42,13 +52,35 @@ ActiveRecord::Schema.define(version: 20140922175847) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "favorite_color"
+    t.index ["email"], name: "index_mangs_on_email", using: :btree
+    t.index ["reset_password_token"], name: "index_mangs_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid"], name: "index_mangs_on_uid", unique: true, using: :btree
   end
 
-  add_index "mangs", ["email"], name: "index_mangs_on_email", using: :btree
-  add_index "mangs", ["reset_password_token"], name: "index_mangs_on_reset_password_token", unique: true, using: :btree
-  add_index "mangs", ["uid"], name: "index_mangs_on_uid", unique: true, using: :btree
+  create_table "merchants", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string   "name"
+    t.string   "img"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
-  create_table "users", force: :cascade do |t|
+  create_table "products", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string   "title"
+    t.integer  "priority"
+    t.uuid     "category_id"
+    t.uuid     "merchant_id"
+    t.string   "img"
+    t.integer  "price_cents"
+    t.string   "desc"
+    t.string   "portion"
+    t.string   "tip"
+    t.string   "expiry"
+    t.integer  "people"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "email"
     t.string   "encrypted_password",          default: "", null: false
     t.string   "reset_password_token"
@@ -74,10 +106,9 @@ ActiveRecord::Schema.define(version: 20140922175847) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "favorite_color"
+    t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid"], name: "index_users_on_uid", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["uid"], name: "index_users_on_uid", unique: true, using: :btree
 
 end

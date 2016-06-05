@@ -1,4 +1,5 @@
 class DemoGroupController < ApplicationController
+  respond_to :json
   devise_token_auth_group :member, contains: [:user, :mang]
   before_action :authenticate_member!
 

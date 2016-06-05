@@ -1,6 +1,6 @@
 class DeviseTokenAuthCreateMangs < ActiveRecord::Migration
   def change
-    create_table(:mangs) do |t|
+    create_table :mangs, id: :uuid do |t|
       ## Database authenticatable
       t.string :email
       t.string :encrypted_password, :null => false, :default => ""

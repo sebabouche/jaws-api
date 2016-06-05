@@ -1,4 +1,5 @@
 class DemoUserController < ApplicationController
+  respond_to :json
   before_action :authenticate_user!
 
   def members_only

@@ -1,4 +1,5 @@
 class DemoMangController < ApplicationController
+  respond_to :json
   before_action :authenticate_mang!
 
   def members_only
