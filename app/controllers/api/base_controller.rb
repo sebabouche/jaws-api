@@ -39,6 +39,9 @@ class Api::BaseController < ActionController::Base
     # 2 Weeks
     expires = Time.now.to_i + (3600 * 24 * 14)
     JWT.encode({:user => user.email, :exp => expires}, "YOURSECRETKEY", 'HS256')
+
+    # JWT.encode({user: 'test@example.com', exp: Time.now.to_i + (3600 * 24 * 14)}, "YOURSECRETKEY", 'HS256')
+    # eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoidGVzdEBleGFtcGxlLmNvbSIsImV4cCI6MTQ2Njc4MDI4NX0.nkWSqfhsAydcbPYoc6eVrLTYa_yCKGfcGZ0MshCZsUQ
   end
 
   def render_unauthorized(payload = { errors: { unauthorized: ["You are not authorized perform this action."] } })
