@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-  resources :products, only: :index
+  post 'auth_user' => 'authentication#authenticate_user'
+  get 'test' => 'test#index'
 
 end

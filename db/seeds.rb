@@ -219,3 +219,9 @@ Product.create(
   people: 1,
   portion: "A la pièce"
 )
+
+test_user = User.create(
+  email: 'test@example.com',
+  password: 'password',
+  password_confirmation: 'password'
+)
