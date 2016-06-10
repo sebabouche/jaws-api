@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  post 'auth_user' => 'authentication#authenticate_user'
   get 'test' => 'test#index'
 
+  devise_for :users, :controllers => {sessions: 'api/sessions', registrations: 'api/registrations'}
 end
